@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>AngularJS Basics</title>
+</head>
+<body ng-app="myApp">
+<script src="js/angular.min.js"></script>
+<div ng-controller="MainCtrl">
+    {{firstName}}
+    <button ng-click="clickMe()">ClickMe</div>
+</div>
+
+<script>
+    angular.module("myApp",[]).
+            controller("MainCtrl",function($scope){
+                $scope.firstName="Roopesh";
+                $scope.clickMe=function(){
+                    alert($scope.firstName);
+                }
+            });
+</script>
+
+</body>
+
+</html>
