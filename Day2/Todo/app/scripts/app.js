@@ -1,15 +1,21 @@
 angular.module("todoApp",[]).
-    controller("MainCtrl",function($scope) {
-        $scope.todos = [];
+    controller("MainCtrl",["$scope","TodoService",function($scope, TodoService) {
+        $scope.todos = TodoService.todos;
+
+        $scope.keypress = function() {
+            if (event.keyCode == 13) {
+                $scope.add();
+            }
+        }
 
         $scope.add = function(){
-            $scope.todos.push($scope.newTodo);
-            $scope.newTodo = {};
+            console.log($scope.newTodo);
+            TodoService.add($scope.newTodo);
+            $scope.newTodo={};
         }
 
         $scope.delete = function(item) {
-            var position = $scope.todos.indexOf(item);
-            $scope.todos.splice(position,1);
+            TodoService.delete(item);
         }
 
         $scope.clear = function() {
@@ -21,10 +27,24 @@ angular.module("todoApp",[]).
         }
 
         $scope.clearCompleted = function() {
-            for(var i = $scope.todos.length-1; i>=0; i-- ) {
-                if ($scope.todos[i].completed == true) {
-                    $scope.todos.splice(i,1);
+            TodoService.clearCompleted();
+        }
+    }])
+    .service("TodoService",[function(){
+        return {
+            todos:[],
+            add:function(todo){
+                this.todos.push(todo);
+            },
+            delete:function(todo) {
+                this.todos.splice(this.todos.indexOf(todo), 1);
+            },
+            clearCompleted:function() {
+                for(var i = this.todos.length-1; i>=0; i-- ) {
+                    if (this.todos[i].completed == true) {
+                        this.todos.splice(i,1);
+                    }
                 }
             }
-        }
-    });
+        };
+    }]);

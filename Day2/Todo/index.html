@@ -15,7 +15,7 @@
 
 <div ng-controller="MainCtrl">
     <div>
-        <input type="text" placeholder="Enter todo..." ng-model="newTodo.text">
+        <input type="text" placeholder="Enter todo..." ng-model="newTodo.text" ng-keypress="keypress()">
         <input type="hidden" ng-model="newTodo.completed" value="false">
         <button ng-click="add()">Add</button>
     </div>
@@ -23,7 +23,7 @@
 
     <div ng-repeat="item in todos">
         <div>
-            <input type="checkbox" ng-model="item.completed">
+            <input type="checkbox" ng-model="item.completed"">
             <span ng-bind="item.text" ng-class="{'completed':item.completed}"></span>
             <button ng-click="delete(item)">x</button>
         </div>
