@@ -6,6 +6,8 @@ angular.module("todo")
     .controller("MainCtrl",["$scope","TodoService",function($scope, TodoService) {
         $scope.todos = TodoService.todos;
 
+        $scope.criteria = "All";
+
         $scope.keypress = function() {
             if (event.keyCode == 13) {
                 $scope.add();
